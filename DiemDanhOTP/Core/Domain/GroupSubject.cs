@@ -8,17 +8,17 @@
             Studies = new HashSet<Study>();
         }
 
-        public int Idgroup { get; set; }
-        public string? Idcourse { get; set; }
-        public int? Idteacher { get; set; }
+        public string Id { get; set; }
+        public string? IdCourse { get; set; }
+        public string? IdTeacher { get; set; }
         public string? Class { get; set; }
         public DateTime? DateStart { get; set; }
         public DateTime? DateEnd { get; set; }
         public byte? Semester { get; set; }
         public int? Year { get; set; }
 
-        public virtual Course? IdcourseNavigation { get; set; }
-        public virtual Teacher? IdteacherNavigation { get; set; }
+        public virtual Course? Course { get; set; }
+        public virtual Teacher? Teacher { get; set; }
         public virtual ICollection<Session> Sessions { get; set; }
         public virtual ICollection<Study> Studies { get; set; }
     }

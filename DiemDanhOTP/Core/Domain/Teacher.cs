@@ -8,9 +8,6 @@
         }
 
         public string Id { get; set; }
-        public string? Name { get; set; }
-        public string? Phone { get; set; }
-        public DateTime? Birthday { get; set; }
         public User? IdUser { get; set; }
 
         public User? User { get; set; }
