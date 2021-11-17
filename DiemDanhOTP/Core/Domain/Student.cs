@@ -4,6 +4,7 @@
     {
         public Student()
         {
+            Id = Guid.NewGuid().ToString();
             SessionDetails = new HashSet<SessionDetail>();
             Studies = new HashSet<Study>();
         }

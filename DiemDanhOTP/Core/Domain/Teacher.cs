@@ -4,11 +4,12 @@
     {
         public Teacher()
         {
+            Id = Guid.NewGuid().ToString();
             GroupSubjects = new HashSet<GroupSubject>();
         }
 
         public string Id { get; set; }
-        public User? IdUser { get; set; }
+        public string? IdUser { get; set; }
 
         public User? User { get; set; }
         public virtual ICollection<GroupSubject> GroupSubjects { get; set; }

@@ -2,50 +2,54 @@
 using DiemDanhOTP.Core.Repositorises;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using Upico.Persistence.Repositories;
 
 namespace DiemDanhOTP.Persistence.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : Repository<User>, IUserRepository
     {
         private readonly DiemDanhDBContext _context;
         public UserRepository(DiemDanhDBContext context)
+            :base(context)
         {
             _context = context;
         }
 
-        public async Task<User> GetUser(string userName)
+        //Get by id
+        public async Task<User> SearchUserById(string id)
         {
-            return await _context.Users.FirstOrDefaultAsync(x => x.UserName == userName);
+            var user = await this._context.Users.SingleOrDefaultAsync(u => u.Id== id);
+            if (user == null)
+            {
+                throw new NotImplementedException();
+            }
+
+            return user;
+           
         }
 
-        public Task<User> GetUserProfile(string username)
+        //Get by usename && pass
+        public async Task<User> SearchUserByCondition(string key)
         {
-            throw new NotImplementedException();
+            var is_id = Guid.TryParse(key, out var id);
+            User user;
+            if (is_id)
+            {
+                user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id.ToString());
+            }
+            else
+            {
+                user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == key);
+            }
+           
+            
+            if (user == null)
+            {
+                throw new NotImplementedException();
+            }
+           
+            return user;
         }
-
-        public Task Load(Expression<Func<User, bool>> predicate)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task LoadMainAvatar(string userName)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<User> SearchUserById(string id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<User> SearchUserByUsername(string username)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<User>> SearchUsersByDisplayName(string displayName)
-        {
-            throw new NotImplementedException();
-        }
+    
     }
 }

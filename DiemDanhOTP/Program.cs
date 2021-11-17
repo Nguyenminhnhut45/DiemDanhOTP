@@ -1,7 +1,10 @@
+using DiemDanhOTP.Core;
 using DiemDanhOTP.Core.Domain;
 using DiemDanhOTP.Core.Repositorises;
+using DiemDanhOTP.Core.Services;
 using DiemDanhOTP.Persistence;
 using DiemDanhOTP.Persistence.Repositories;
+using DiemDanhOTP.Persistence.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -18,8 +21,8 @@ builder.Services.AddCors((options) =>
     options.AddPolicy(name: MyAllowSpecificOrigins,
                         builder =>
                         {
-                            builder.WithOrigins("http://example.com",
-                                                "http://www.contoso.com");
+                            builder.WithOrigins("http://localhost:5120", "http://localhost:7120", "http://192.168.1.9:5120", "https://192.168.1.9:7120")
+                            .AllowAnyHeader().AllowCredentials().AllowAnyMethod();
                         });
 });
 ConfigurationManager configuration = builder.Configuration;
@@ -101,7 +104,13 @@ builder.Services.AddAuthentication(opt => {
 builder.Services.AddAutoMapper(typeof(Program));
 
 // Injecting Dependances
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IUserService, UserService>();
+
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ICourseRepository, CourseRepository>();
+builder.Services.AddScoped<ISessionRepository, SessionRepository>();
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 
 
 
@@ -115,9 +124,15 @@ if (app.Environment.IsDevelopment())
 }
 app.UseCors(MyAllowSpecificOrigins);
 app.UseHttpsRedirection();
-
+app.UseRouting();
+app.UseStaticFiles();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 
 await app.RunAsync();

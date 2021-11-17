@@ -9,6 +9,12 @@ namespace DiemDanhOTP.Persistence
 
         public IUserRepository User { get; private set; }
 
+        public ICourseRepository Course { get; private set; }   
+        public ISessionRepository Session { get; private set; } 
+        public ISessionDetailRepository SessionDetail { get; private set; }
+        public IStudentRepository Student { get; private set; }
+        public IGroupSubjectRepository GroupSubject { get; private set; }
+
         public UnitOfWork (DiemDanhDBContext context, IUserRepository userRepository)
         {
             _context = context;

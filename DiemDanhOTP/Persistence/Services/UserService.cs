@@ -13,17 +13,20 @@ namespace DiemDanhOTP.Persistence.Services
     public class UserService : IUserService
     {
         private readonly UserManager<User> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IConfiguration _config;
 
         public UserService(UserManager<User> userManager,
             SignInManager<User> signInManager,
+            RoleManager<IdentityRole> roleManager,
             IUnitOfWork unitOfWork,
             IConfiguration config)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
             _unitOfWork = unitOfWork;
             _config  = config;
         }
@@ -129,16 +132,23 @@ namespace DiemDanhOTP.Persistence.Services
             }
 
             user = new User()
-            {
+            { 
                 UserName = request.Username,
                 FullName = request.FullName,
                 Email = request.Email,
+                Teacher = request.IsTeacher ? new Teacher() : null,
+                Student =  request.IsTeacher ? null : new Student(),
             };
             if (listError.Count != 0)
                 return listError;
 
             var result = await _userManager.CreateAsync(user, request.Password);
-            await _userManager.AddToRoleAsync(user, request.IsTeacher ? RoleNames.RoleTeacher : RoleNames.RoleStudent);
+            var roleName = request.IsTeacher ? RoleNames.RoleTeacher : RoleNames.RoleStudent;
+            if (!await _roleManager.RoleExistsAsync(roleName)) {
+                var role = new IdentityRole(roleName);
+                await _roleManager.CreateAsync(role);
+            }
+            await _userManager.AddToRoleAsync(user, roleName);
 
             if (result.Succeeded)
                 return null;
