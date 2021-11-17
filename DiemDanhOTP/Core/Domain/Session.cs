@@ -16,7 +16,7 @@
         public string? Day { get; set; }
         public DateTime? Date { get; set; }
 
-        public virtual GroupSubject? IdgroupNavigation { get; set; }
+        public virtual GroupSubject? GroupSubject { get; set; }
         public virtual ICollection<SessionDetail> SessionDetails { get; set; }
     }
 }

@@ -9,8 +9,9 @@ namespace DiemDanhOTP.Persistence.EntityConfiguration
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.HasOne(x => x.Student);
-            builder.HasOne(x => x.Teacher);
+            builder.HasOne(x => x.Student).WithOne(x=>x.User).HasForeignKey<Student>(x=> x.IdUser);
+            builder.HasOne(x => x.Teacher).WithOne(x => x.User).HasForeignKey<Teacher>(x => x.IdUser);
+           
         }
     }
 }

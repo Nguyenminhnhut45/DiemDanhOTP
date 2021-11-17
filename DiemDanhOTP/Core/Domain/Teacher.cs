@@ -8,9 +8,9 @@
         }
 
         public string Id { get; set; }
-        public User? IdUser { get; set; }
+        public User IdUser { get; set; }
 
-        public User? User { get; set; }
+        public User User { get; set; }
         public virtual ICollection<GroupSubject> GroupSubjects { get; set; }
     }
 }

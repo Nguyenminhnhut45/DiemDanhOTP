@@ -13,39 +13,30 @@ namespace DiemDanhOTP.Persistence.Repositories
             _context = context;
         }
 
-        public async Task<User> GetUser(string userName)
+        //Get by id
+        public async Task<User> SearchUserById(string id)
         {
-            return await _context.Users.FirstOrDefaultAsync(x => x.UserName == userName);
-        }
+            var user = await this._context.Users.SingleOrDefaultAsync(u => u.Id== id);
+            if (user == null)
+            {
+                throw new NotImplementedException();
+            }
 
-        public Task<User> GetUserProfile(string username)
-        {
-            throw new NotImplementedException();
+            return user;
+           
         }
-
-        public Task Load(Expression<Func<User, bool>> predicate)
+        //Get by usename && pass
+        public async Task<User> SearchUserByCondition(string username, string password)
         {
-            throw new NotImplementedException();
+            var user = await this._context.Users.SingleOrDefaultAsync(u => u.Usename == username&& u.Password==password);
+            
+            if (user == null)
+            {
+                throw new NotImplementedException();
+            }
+           
+            return user;
         }
-
-        public Task LoadMainAvatar(string userName)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<User> SearchUserById(string id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<User> SearchUserByUsername(string username)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<User>> SearchUsersByDisplayName(string displayName)
-        {
-            throw new NotImplementedException();
-        }
+    
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace DiemDanhOTP.Core.Domain
 {
-    public class GroupSubject
+    public  class GroupSubject
     {
         public GroupSubject()
         {
@@ -8,7 +8,7 @@
             Studies = new HashSet<Study>();
         }
 
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string? IdCourse { get; set; }
         public string? IdTeacher { get; set; }
         public string? Class { get; set; }

@@ -1,12 +1,10 @@
-﻿namespace DiemDanhOTP.Core.Domain
+﻿namespace DiemDanhOTP.Resource
 {
-    public class Course
+    public class CourseResource
     {
-        public string  Id { get; set; }
+        public string Id { get; set; }
         public string? Name { get; set; }
         public int NOC { get; set; }
         public int Period { get; set; }
-
-
     }
 }
