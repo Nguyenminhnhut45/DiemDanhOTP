@@ -30,14 +30,10 @@ namespace DiemDanhOTP.Persistence
             builder.ApplyConfiguration(new UserConfiguration());
             builder.ApplyConfiguration(new StudentConfiguration());
             builder.ApplyConfiguration(new SessionConfiguration());
+            builder.ApplyConfiguration(new SessionDetailConfiguration());
             builder.ApplyConfiguration(new GroupSubjectConfiguration());
             builder.ApplyConfiguration(new TeacherConfiguration());
             builder.ApplyConfiguration(new StudyConfiguration());
-
-
-
-
-
         }
     }
 }

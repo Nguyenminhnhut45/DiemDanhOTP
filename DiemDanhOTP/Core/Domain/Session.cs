@@ -4,10 +4,11 @@
     {
         public Session()
         {
+            Id = Guid.NewGuid().ToString();
             SessionDetails = new HashSet<SessionDetail>();
         }
 
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string? Classroom { get; set; }
         public int? SessionNumber { get; set; }
         public int? PeriodStart { get; set; }

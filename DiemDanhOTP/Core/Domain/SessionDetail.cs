@@ -4,6 +4,7 @@
     {
         public SessionDetail()
         {
+            Id = Guid.NewGuid().ToString();
             Session = new Session();
             Student = new Student();
         }

@@ -1,8 +1,9 @@
 ﻿using DiemDanhOTP.Core.Domain;
+using Upico.Core.Repositories;
 
 namespace DiemDanhOTP.Core.Repositorises
 {
-    public interface IStudentRepository
+    public interface IStudentRepository: IRepository<Student>
     {
        
         public Task<Student> GetStudentByid(int id);

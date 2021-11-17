@@ -1,6 +1,9 @@
-﻿namespace DiemDanhOTP.Core.Repositorises
+﻿using DiemDanhOTP.Core.Domain;
+using Upico.Core.Repositories;
+
+namespace DiemDanhOTP.Core.Repositorises
 {
-    public interface ISessionDetailRepository
+    public interface ISessionDetailRepository: IRepository<SessionDetail>
     {
     }
 }

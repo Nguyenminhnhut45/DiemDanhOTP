@@ -10,7 +10,7 @@ namespace DiemDanhOTP.Persistence.EntityConfiguration
         {
             builder.HasKey(x => x.Id);
             
-            builder.HasOne(x => x.User).WithOne(x => x.Student).OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(x => x.User).WithOne(x => x.Student).HasForeignKey<Student>(x => x.IdUser).OnDelete(DeleteBehavior.Cascade);
 
             builder.HasMany(x=> x.SessionDetails).WithOne(x=>x.Student).OnDelete(DeleteBehavior.Cascade);
             builder.HasMany(x => x.Studies).WithOne(x => x.Student).OnDelete(DeleteBehavior.Cascade);

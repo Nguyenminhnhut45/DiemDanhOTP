@@ -1,8 +1,9 @@
 ﻿using DiemDanhOTP.Core.Domain;
+using Upico.Core.Repositories;
 
 namespace DiemDanhOTP.Core.Repositorises
 {
-    public interface ICourseRepository
+    public interface ICourseRepository: IRepository<Course>
     {
         public Task<List<Course>> SearchAll();
         public Task<Course> SearchCourseById(string id);

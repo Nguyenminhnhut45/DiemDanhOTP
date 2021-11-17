@@ -1,15 +1,18 @@
 ﻿using DiemDanhOTP.Core.Domain;
 using DiemDanhOTP.Core.Repositorises;
+using Upico.Persistence.Repositories;
 
 namespace DiemDanhOTP.Persistence.Repositories
 {
-    public class CourseRepository : ICourseRepository
+    public class CourseRepository : Repository<Course>,ICourseRepository
     {
         private readonly DiemDanhDBContext _context;
         public CourseRepository(DiemDanhDBContext context)
+            :base(context)
         {
             _context = context;
         }
+
         public Task<Course> AddCourse(Course course)
         {
             throw new NotImplementedException();

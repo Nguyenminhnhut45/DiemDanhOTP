@@ -15,8 +15,6 @@ namespace DiemDanhOTP.Persistence
         public IStudentRepository Student { get; private set; }
         public IGroupSubjectRepository GroupSubject { get; private set; }
 
-
-
         public UnitOfWork (DiemDanhDBContext context, IUserRepository userRepository)
         {
             _context = context;

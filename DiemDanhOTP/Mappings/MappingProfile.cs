@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DiemDanhOTP.Core.Domain;
 using DiemDanhOTP.Resource;
+using Upico.Core.ServiceResources;
 
 namespace DiemDanhOTP.Mappings
 {
@@ -9,6 +10,7 @@ namespace DiemDanhOTP.Mappings
         public MappingProfile()
         {
             CreateMap<User, UserResource>();
+          
         }
     }
 }

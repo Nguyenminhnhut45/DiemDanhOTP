@@ -2,13 +2,15 @@
 using DiemDanhOTP.Core.Repositorises;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using Upico.Persistence.Repositories;
 
 namespace DiemDanhOTP.Persistence.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : Repository<User>, IUserRepository
     {
         private readonly DiemDanhDBContext _context;
         public UserRepository(DiemDanhDBContext context)
+            :base(context)
         {
             _context = context;
         }
@@ -25,10 +27,21 @@ namespace DiemDanhOTP.Persistence.Repositories
             return user;
            
         }
+
         //Get by usename && pass
-        public async Task<User> SearchUserByCondition(string username, string password)
+        public async Task<User> SearchUserByCondition(string key)
         {
-            var user = await this._context.Users.SingleOrDefaultAsync(u => u.Usename == username&& u.Password==password);
+            var is_id = Guid.TryParse(key, out var id);
+            User user;
+            if (is_id)
+            {
+                user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id.ToString());
+            }
+            else
+            {
+                user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == key);
+            }
+           
             
             if (user == null)
             {

@@ -1,8 +1,9 @@
 ﻿using DiemDanhOTP.Core.Domain;
+using Upico.Core.Repositories;
 
 namespace DiemDanhOTP.Core.Repositorises
 {
-    public interface IGroupSubjectRepository
+    public interface IGroupSubjectRepository: IRepository<GroupSubject>
     {
         public Task<List<GroupSubject>> GetAll();
         public Task<List<GroupSubject>> GetGroupSubject(string id);
